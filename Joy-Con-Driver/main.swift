@@ -21,7 +21,33 @@ let matchingCallback: IOHIDDeviceCallback = {context, result, sender, device in
 
     let reportCallback : IOHIDReportCallback = { context, result, sender, type, reportId, report, reportLength in
         let data = Data(bytes: report, count: reportLength)
-        print(data.map { String(format: "%.2hhx", $0) }.joined())
+        let string = data.map { String(format: "%.2hhx", $0) }.joined()
+
+        switch string {
+            case "3f010008":
+                print("A is pressed")
+            case "3f040008":
+                print("B is pressed")
+            case "3f020008":
+                print("X is pressed")
+            case "3f080008":
+                print("Y is pressed")
+            case "3f004008":
+                print("Z is pressed")
+            case "3f008008":
+                print("ZR is pressed")
+            case "3f000208":
+                print("+ is pressed")
+            case "3f001008":
+                 print("home is pressed")
+            case "3f200008":
+                print("SR is pressed")
+            case "3f100008":
+                print("SL is pressed")
+            default:
+                break // do nothing
+
+        }
     }
 
     let report = UnsafeMutablePointer<UInt8>.allocate(capacity: 4)
