@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		125F62F9FA09CB10506CDC9F /* JoyConButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F6393C48DA37BBF6C7BDC /* JoyConButton.swift */; };
 		125F6659EEB150B7D4539C21 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F6C4006EBCCB11EE8C1EE /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		125F6393C48DA37BBF6C7BDC /* JoyConButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoyConButton.swift; sourceTree = "<group>"; };
 		125F6A4E7CA3A3D31005042D /* Joy-Con-Driver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Joy-Con-Driver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		125F6C4006EBCCB11EE8C1EE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,6 +44,7 @@
 			isa = PBXGroup;
 			children = (
 				125F6C4006EBCCB11EE8C1EE /* main.swift */,
+				125F6393C48DA37BBF6C7BDC /* JoyConButton.swift */,
 			);
 			path = "Joy-Con-Driver";
 			sourceTree = "<group>";
@@ -113,6 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				125F6659EEB150B7D4539C21 /* main.swift in Sources */,
+				125F62F9FA09CB10506CDC9F /* JoyConButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
