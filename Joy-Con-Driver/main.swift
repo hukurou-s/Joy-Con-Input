@@ -44,6 +44,9 @@ func buttonCheck(buttonCode: String) -> JoyConButton {
 
 let manager = IOHIDManagerCreate(kCFAllocatorDefault, 0)
 let matching = [kIOHIDVendorIDKey: 0x057E, kIOHIDProductIDKey: 0x2007]
+let neutralState : UInt32 = 1056964616
+var beforeCode = neutralState
+var nowCode = neutralState
 
 IOHIDManagerSetDeviceMatching(manager, matching as CFDictionary?)
 
@@ -54,11 +57,15 @@ let matchingCallback: IOHIDDeviceCallback = {context, result, sender, device in
 
     let reportCallback : IOHIDReportCallback = { context, result, sender, type, reportId, report, reportLength in
         let data = Data(bytes: report, count: reportLength)
-        let buttonCode = String(data.map { String(format: "%.2hhx", $0) }.joined())
+        //let buttonCode = String(data.map { String(format: "%.2hhx", $0) }.joined())
+        //let button: JoyConButton = buttonCheck(buttonCode: buttonCode)
 
-        let button: JoyConButton = buttonCheck(buttonCode: buttonCode)
-
+        let state = UInt32(bigEndian: data.withUnsafeBytes { $0.pointee })
+        let button = state - neutralState
         print(button)
+        beforeCode = nowCode
+        nowCode = state
+
     }
 
     let report = UnsafeMutablePointer<UInt8>.allocate(capacity: 4)
