@@ -5,16 +5,16 @@
 
 import Foundation
 
-enum JoyConButton: String {
-    case A = "3f010008"
-    case B = "3f040008"
-    case X = "3f020008"
-    case Y = "3f080008"
-    case R = "3f004008"
-    case ZR = "3f008008"
-    case Plus = "3f000208"
-    case Home = "3f001008"
-    case SR = "3f200008"
-    case SL = "3f100008"
-    case Neutral = "3f000008"
+enum JoyConButton: Int32 {
+    case A = 0x010000
+    case B = 0x040000
+    case X = 0x020000
+    case Y = 0x080000
+    case R = 0x004000
+    case ZR = 0x008000
+    case Plus = 0x000200
+    case Home = 0x001000
+    case SR = 0x200000
+    case SL = 0x100000
+    case Neutral = 0x3f000008
 }

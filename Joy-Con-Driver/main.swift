@@ -9,30 +9,40 @@
 import Foundation
 import IOKit.hid
 
-func buttonCheck(buttonCode: String) -> JoyConButton {
+func buttonCheck(buttonCode: Int32) -> JoyConButton {
     var button = JoyConButton.Neutral
 
     switch buttonCode {
-    case "3f010008":
+    case JoyConButton.A.rawValue:
         button = JoyConButton.A
-    case "3f040008":
+        print("A")
+    case JoyConButton.B.rawValue:
         button = JoyConButton.B
-    case "3f020008":
+        print("B")
+    case JoyConButton.X.rawValue:
         button = JoyConButton.X
-    case "3f080008":
+        print("X")
+    case JoyConButton.Y.rawValue:
         button = JoyConButton.Y
-    case "3f004008":
+        print("Y")
+    case JoyConButton.R.rawValue:
         button = JoyConButton.R
-    case "3f008008":
+        print("R")
+    case JoyConButton.ZR.rawValue:
         button = JoyConButton.ZR
-    case "3f000208":
+        print("ZR")
+    case JoyConButton.Plus.rawValue:
         button = JoyConButton.Plus
-    case "3f001008":
+        print("Plus")
+    case JoyConButton.Home.rawValue:
         button = JoyConButton.Home
-    case "3f200008":
+        print("Home")
+    case JoyConButton.SR.rawValue:
         button = JoyConButton.SR
-    case "3f100008":
+        print("SR")
+    case JoyConButton.SL.rawValue:
         button = JoyConButton.SL
+        print("SL")
     default:
         break // do nothing
 
@@ -44,7 +54,7 @@ func buttonCheck(buttonCode: String) -> JoyConButton {
 
 let manager = IOHIDManagerCreate(kCFAllocatorDefault, 0)
 let matching = [kIOHIDVendorIDKey: 0x057E, kIOHIDProductIDKey: 0x2007]
-let neutralState : UInt32 = 1056964616
+let neutralState : Int32 = 1056964616
 var beforeCode = neutralState
 var nowCode = neutralState
 
@@ -56,16 +66,11 @@ let matchingCallback: IOHIDDeviceCallback = {context, result, sender, device in
     IOHIDDeviceScheduleWithRunLoop(device, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
 
     let reportCallback : IOHIDReportCallback = { context, result, sender, type, reportId, report, reportLength in
-        let data = Data(bytes: report, count: reportLength)
-        //let buttonCode = String(data.map { String(format: "%.2hhx", $0) }.joined())
-        //let button: JoyConButton = buttonCheck(buttonCode: buttonCode)
-
-        let state = UInt32(bigEndian: data.withUnsafeBytes { $0.pointee })
-        let button = state - neutralState
-        print(button)
         beforeCode = nowCode
-        nowCode = state
-
+        let data = Data(bytes: report, count: reportLength)
+        nowCode = Int32(bigEndian: data.withUnsafeBytes { $0.pointee })
+        let difference = nowCode - beforeCode
+        buttonCheck(buttonCode: difference)
     }
 
     let report = UnsafeMutablePointer<UInt8>.allocate(capacity: 4)
